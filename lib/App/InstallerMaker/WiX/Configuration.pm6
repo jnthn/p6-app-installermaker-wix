@@ -20,9 +20,33 @@ class App::InstallerMaker::WiX::Configuration {
         }
     }
 
+    class WiXOptions {
+        has $.guid;
+        has $.name;
+        has $.manufacturer;
+        has $.version;
+        has $.language;
+        has $.component-guid;
+
+        submethod BUILD(:$!guid = no-key('guid'), :$!name = no-key('name'),
+                        :$!manufacturer = no-key('manufacturer'),
+                        :$!version = no-key('version'), :$!language = '1033',
+                        :$!component-guid = no-key('component-guid'),
+                        *%other) {
+            if %other {
+                die "Unexpected key '{%other.keys[0]}' in wix section";
+            }
+        }
+
+        sub no-key($key) {
+            die "wix section is missing required key '$key'"
+        }
+    }
+
     has Versions $.versions;
     has $.install-location;
     has $.application;
+    has WiXOptions $.wix;
 
     method new() {
         die "Use the parse method to parse a configuration";
@@ -49,6 +73,15 @@ class App::InstallerMaker::WiX::Configuration {
         }
         without $!application {
             die "Missing top-level key 'application'";
+        }
+        with $wix {
+            when Map {
+                $!wix = WiXOptions.new(|%$_);
+            }
+            die "Malformed 'wix' section"
+        }
+        else {
+            die "Missing top-level key 'wix'";
         }
         if %other {
             die "Unexpected top-level key '{%other.keys[0]}'";

@@ -79,7 +79,7 @@ my constant @all-tasks = [
     Task.new(
         :id<heat-files>, :name('Gathering files'),
         :dependencies<install-application>,
-        :command('heat dir $INSTALL-LOCATION -gg -sfrag -cg Application ' ~
+        :command('heat dir $INSTALL-LOCATION -gg -sfrag -cg ApplicationFiles ' ~
             '-dr INSTALLROOT -srd -out files.wxs')
     ),
     Task.new(
@@ -163,10 +163,32 @@ sub build-installer(App::InstallerMaker::WiX::Configuration $conf, $work-dir) is
 }
 
 sub generate-prodcut-wxs($conf) {
-    # XXX Lots to fill out here
     spurt 'product.wxs', Q:c:to/XML/
         <?xml version="1.0" encoding="utf-8"?>
         <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+            <Product Id="*" Name="{$conf.wix.name}" Manufacturer="{$conf.wix.manufacturer}"
+                     Version="{$conf.wix.version}" Language="{$conf.wix.language}"
+                     UpgradeCode="{$conf.wix.guid}">
+                <Package Compressed="yes" InstallerVersion="200" />
+
+                <Property Id="ROOTDRIVE"><![CDATA[{$conf.install-location.substr(0, 3)}]]></Property>
+
+                <Directory Id="TARGETDIR" Name="SourceDir">
+                    <Directory Id="INSTALLROOT" Name="{$conf.install-location.substr(3)}" />
+                    <Component Id="ApplicationPath" Guid="{$conf.wix.component-guid}">
+                        <Environment Id="MYPATH" Name="PATH" Action="set"
+                            Part="last" Value="[INSTALLROOT]share\perl6\site\bin"
+                            System="no" Permanent="no" />
+                            <Condition>MYENVIRONMENTSETPATH</Condition>
+                    </Component>
+                </Directory>
+
+                <Feature Id="ProductFeature" Level="1" Title="{$conf.wix.name}">
+                    <ComponentGroupRef Id="ApplicationFiles" />
+                    <ComponentRef Id="ApplicationPath" />
+                </Feature>
+                <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+            </Product>
         </Wix>
         XML
 }
