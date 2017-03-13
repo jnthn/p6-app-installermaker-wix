@@ -67,14 +67,14 @@ my constant @all-tasks = [
     Task.new(
         :id<install-zef>, :name('Install Zef'),
         :dependencies<fetch-zef build-rakudo>,
-        :command('cd $TMP\\zef && $INSTALL-LOCATION\\bin\\perl6.bat -Ilib bin/zef --/test --force install .')
+        :command('cd $TMP\\zef && $INSTALL-LOCATION\\bin\\perl6.bat -Ilib bin/zef --/test install .')
     ),
     Task.new(
         :id<install-application>, :name('Install Application'),
         :dependencies<install-zef>,
         :command('$INSTALL-LOCATION\\bin\\perl6 ' ~
             '$INSTALL-LOCATION\\share\\perl6\\site\\bin\\zef ' ~
-            '--/test --force --install-to=site install $APPLICATION')
+            '--/test --install-to=site install $APPLICATION')
     ),
     Task.new(
         :id<heat-files>, :name('Gathering files'),
