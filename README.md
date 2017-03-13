@@ -76,7 +76,7 @@ Write a YAML configuration file like this:
     msi: my-glorious-application.msi
 
     # Some WiX configuration. You must generate unique GUIDs for your app. Get
-    # them [here](https://www.guidgenerator.com/) whlie supplies last! Check
+    # them [here](https://www.guidgenerator.com/) while supplies last! Check
     # the dashes, uppercase, and braces boxes.
     wix:
         guid: '{YOUR-GUID-HERE}'
