@@ -12,6 +12,10 @@ class Task {
 
 my constant @all-tasks = [
     Task.new(
+        :id<cleanup>, :name('Remove target directory if it exists'),
+        :command('rd /s /q $INSTALL-LOCATION')
+    ),
+    Task.new(
         :id<fetch-moarvm>, :name('Fetch MoarVM'),
         :command('git clone git@github.com:MoarVM/MoarVM.git $TMP\\MoarVM && ' ~
                  'cd $TMP\\MoarVM && git checkout $MOAR-VERSION')
@@ -28,7 +32,7 @@ my constant @all-tasks = [
     ),
     Task.new(
         :id<configure-moarvm>, :name('Configure MoarVM'),
-        :dependencies<fetch-moarvm>,
+        :dependencies<cleanup fetch-moarvm>,
         :command('cd $TMP\\MoarVM && perl Configure.pl --prefix=$INSTALL-LOCATION'),
     ),
     Task.new(
