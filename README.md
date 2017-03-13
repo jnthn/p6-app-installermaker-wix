@@ -37,8 +37,10 @@ This tool:
 
 ## What you'll need
 
+* Perl 6, to run this tool
 * Git
-* Perl 5 (tested with ActiveState Perl, though likely shouldn't matter)
+* Perl 5, to run the MoarVM/NQP/Rakudo configure programs (tested with
+  ActiveState Perl, though likely shouldn't matter)
 * The Visual C++ build tools, and `nmake`/`cl`/`link` on path. Note that this
   does not imply installing Visual Studio; it is possible to freely download the
   [standalone compiler](http://landinghub.visualstudio.com/visual-cpp-build-tools).
