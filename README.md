@@ -65,8 +65,13 @@ Write a YAML configuration file like this:
 
     # The application to install (will be passed to `zef install`), so you can
     # actually list multiple things here if you wish.) You can also pass a path
-    # if the project is not in the Perl 6 module ecosystem.
-    application: App::MyApplication
+    # if the project is not in the Perl 6 module ecosystem (at the time of
+    # writing, you must use forward slashes, not backslashes; filed as zef bug
+    # #137)
+    application: App::MyGloriousApplication
+
+    # The name of the MSI file to generate. Optional; default is output.msi.
+    msi: my-glorious-application.msi
 
     # Some WiX configuration. You must generate unique GUIDs for your app. Get
     # them [here](https://www.guidgenerator.com/) whlie supplies last! Check
