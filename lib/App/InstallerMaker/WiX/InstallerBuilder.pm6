@@ -72,7 +72,8 @@ my constant @all-tasks = [
     Task.new(
         :id<install-application>, :name('Install Application'),
         :dependencies<install-zef>,
-        :command('$INSTALL-LOCATION\\share\\perl6\\site\\bin\\zef.bat ' ~
+        :command('$INSTALL-LOCATION\\bin\\perl6 ' ~
+            '$INSTALL-LOCATION\\share\\perl6\\site\\bin\\zef ' ~
             '--/test --force --install-to=site install $APPLICATION')
     ),
     Task.new(
