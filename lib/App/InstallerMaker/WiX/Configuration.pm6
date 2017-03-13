@@ -46,6 +46,7 @@ class App::InstallerMaker::WiX::Configuration {
     has Versions $.versions;
     has $.install-location;
     has $.application;
+    has $.msi;
     has WiXOptions $.wix;
 
     method new() {
@@ -58,7 +59,7 @@ class App::InstallerMaker::WiX::Configuration {
     }
 
     submethod BUILD(:$!install-location, :$!application, :$versions, :$wix,
-                    *%other) {
+                    :$!msi = 'output.msi', *%other) {
         with $versions {
             when Map {
                 $!versions = Versions.new(|%$_);

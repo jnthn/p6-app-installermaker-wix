@@ -95,7 +95,7 @@ my constant @all-tasks = [
         :id<msi>, :name('Linking MSI'),
         :dependencies<candle-files candle-product>,
         :command('light -b $INSTALL-LOCATION -ext WixUIExtension files.wixobj ' ~
-            'product.wixobj -o output.msi')
+            'product.wixobj -o $MSI')
     )
 ];
 
@@ -106,7 +106,8 @@ sub build-installer(App::InstallerMaker::WiX::Configuration $conf, $work-dir) is
         NQP-VERSION => $conf.versions.nqp,
         RAKUDO-VERSION => $conf.versions.rakudo,
         INSTALL-LOCATION => $conf.install-location,
-        APPLICATION => $conf.application;
+        APPLICATION => $conf.application,
+        MSI => $conf.msi;
     sub subst-vars($command) {
         $command.subst(/\$(<[\w-]>+)/, { %vars{$0} // die "Unknown var $0" }, :g)
     }
