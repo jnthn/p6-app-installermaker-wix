@@ -13,7 +13,7 @@ class Task {
 my constant @all-tasks = [
     Task.new(
         :id<cleanup>, :name('Remove target directory if it exists'),
-        :command('rd /s /q $INSTALL-LOCATION')
+        :command('rd /s /q $INSTALL-LOCATION || echo')
     ),
     Task.new(
         :id<fetch-moarvm>, :name('Fetch MoarVM'),
