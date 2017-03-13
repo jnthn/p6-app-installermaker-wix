@@ -10,11 +10,11 @@
     "provides"      : {
         "make-perl6-wix-installer" : "bin/make-perl6-wix-installer",
         "App::InstallerMaker::WiX::Configuration" :
-            "lib/App::InstallerMaker/WiX/Configuration.pm6",
+            "lib/App/InstallerMaker/WiX/Configuration.pm6",
         "App::InstallerMaker::WiX::InstallerBuilder" :
             "lib/App/InstallerMaker/WiX/InstallerBuilder.pm6",
         "App::InstallerMaker::WiX::PreCheck" :
-            "lib/App::InstallerMaker/WiX/PreCheck.pm6"
+            "lib/App/InstallerMaker/WiX/PreCheck.pm6"
     },
     "source-url" : "git@github.com:jnthn/p6-app-installermaker-wix.git"
 }
