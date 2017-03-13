@@ -178,9 +178,8 @@ sub generate-prodcut-wxs($conf) {
                     <Directory Id="INSTALLROOT" Name="{$conf.install-location.substr(3)}" />
                     <Component Id="ApplicationPath" Guid="{$conf.wix.component-guid}">
                         <Environment Id="MYPATH" Name="PATH" Action="set"
-                            Part="last" Value="[INSTALLROOT]share\perl6\site\bin"
+                            Part="last" Value="[INSTALLROOT]\bin;[INSTALLROOT]share\perl6\site\bin"
                             System="no" Permanent="no" />
-                            <Condition>MYENVIRONMENTSETPATH</Condition>
                     </Component>
                 </Directory>
 
