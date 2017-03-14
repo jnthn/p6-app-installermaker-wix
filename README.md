@@ -73,6 +73,20 @@ Write a YAML configuration file like this:
     # The name of the MSI file to generate. Optional; default is output.msi.
     msi: my-glorious-application.msi
 
+    # By default, the PATH will be ammended to include both bin and site bin
+    # directories, meaning that every binary will be exposed (including the
+    # bundled MoarVM/Rakudo). This may be useful if you want to make a Perl 6
+    # distribution with modules, for example. On the other hand, if you are
+    # making an installer for an application that just happens to be written in
+    # Perl 6, it's not so good. If this `expose-entrypoints` section is included,
+    # then a folder will be created and added to path, which only contains
+    # launch scripts for the apps mentioned below (it should match the name of
+    # the application's entrypoint(s)). Note that you can't include names like
+    # "perl6" and "moar" in here, only those of scripts installed by the
+    # application definition above.
+    expose-entrypoints:
+        - myapp
+
     # Some WiX configuration. You must generate unique GUIDs for your app. Get
     # them [here](https://www.guidgenerator.com/) while supplies last! Check
     # the dashes, uppercase, and braces boxes.

@@ -47,6 +47,7 @@ class App::InstallerMaker::WiX::Configuration {
     has $.install-location;
     has $.application;
     has $.msi;
+    has @.expose-entrypoints;
     has WiXOptions $.wix;
 
     method new() {
@@ -59,7 +60,7 @@ class App::InstallerMaker::WiX::Configuration {
     }
 
     submethod BUILD(:$!install-location, :$!application, :$versions, :$wix,
-                    :$!msi = 'output.msi', *%other) {
+                    :$!msi = 'output.msi', :@!expose-entrypoints, *%other) {
         with $versions {
             when Map {
                 $!versions = Versions.new(|%$_);
