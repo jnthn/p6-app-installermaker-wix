@@ -1,6 +1,7 @@
 use App::InstallerMaker::WiX::Configuration;
 use App::InstallerMaker::WiX::PreCheck;
 use App::InstallerMaker::WiX::InstallerBuilder;
+use Shell::Command;
 
 sub MAIN(Str $yaml-description) {
     my $conf-promise = start App::InstallerMaker::WiX::Configuration.parse(
@@ -16,6 +17,7 @@ sub MAIN(Str $yaml-description) {
 
     my $work-dir = $*TMPDIR ~ '\\install-build-' ~ time;
     mkdir $work-dir;
+    LEAVE rm_rf $work-dir;
     react {
         whenever build-installer($conf, $work-dir) {
             print "{.name } {'.' x 50 - .name.chars} ";

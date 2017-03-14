@@ -5,6 +5,7 @@
     "description"   : "Tool to make basic WiX installers for Perl 6 apps, bundling MoarVM/Rakudo.",
     "author"        : "Jonathan Worthington <jonathan@edument.se>",
     "depends"       : [
+        "Shell::Command",
         "YAMLish"
     ],
     "provides"      : {
