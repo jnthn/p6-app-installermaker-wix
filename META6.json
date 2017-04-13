@@ -1,7 +1,7 @@
 {
     "perl"          : "6.*",
     "name"          : "App::InstallerMaker::WiX",
-    "version"       : "0.1",
+    "version"       : "0.2",
     "description"   : "Tool to make basic WiX installers for Perl 6 apps, bundling MoarVM/Rakudo.",
     "author"        : "Jonathan Worthington <jonathan@edument.se>",
     "depends"       : [

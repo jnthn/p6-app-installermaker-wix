@@ -233,13 +233,22 @@ sub generate-entrypoints($conf) {
         state $perl6 = "$conf.install-location()\\bin\\perl6.bat";
         my $target = "$base\\$name";
         if $target.IO.e {
+            my $command = q:c:to/COMMAND/.subst(/\n\s+/, '', :g);
+                $*REPO.repo-chain.grep(CompUnit::Repository::Installable)
+                    .map(*.files('bin/{$name}', name => '{$name.tclc}')).flat
+                    .sort(*<ver>).tail.hash.<files><bin/{$name}>.absolute.say
+                COMMAND
+            my $res-proc = run($perl6, "-e", $command, :out);
+            my $res = $res-proc.out.slurp-rest.trim;
+            $res-proc.out.close;
             spurt "$conf.install-location()\\$name.bat", Q:c:to/NA-NA-NA-NA-BATCHFILE!/
                 @echo off
+                SET PERL6_PROGRAM_NAME=rmtly
                 if "%OS%" == "Windows_NT" goto WinNT
-                "{$perl6}" "{$target}" %1 %2 %3 %4 %5 %6 %7 %8 %9
+                "{$perl6}" "{$res}" %1 %2 %3 %4 %5 %6 %7 %8 %9
                 goto endofperl
                 :WinNT
-                "{$perl6}" "{$target}" %*
+                "{$perl6}" "{$res}" %*
                 if NOT "%COMSPEC%" == "%SystemRoot%\system32\cmd.exe" goto endofperl
                 if %errorlevel% == 9009 echo Could not start {$name}.
                 if errorlevel 1 goto script_failed_so_exit_with_non_zero_val 2>nul
