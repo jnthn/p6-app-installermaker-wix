@@ -23,47 +23,47 @@ my @all-tasks = [
     CommandTask.new(
         :id<fetch-moarvm>, :name('Fetch MoarVM'),
         :command('git clone git@github.com:MoarVM/MoarVM.git $TMP\\MoarVM && ' ~
-                 'cd $TMP\\MoarVM && git checkout $MOAR-VERSION')
+                 'cd /d $TMP\\MoarVM && git checkout $MOAR-VERSION')
     ),
     CommandTask.new(
         :id<fetch-nqp>, :name('Fetch NQP'),
         :command('git clone git@github.com:perl6/nqp.git $TMP\\nqp && ' ~
-                 'cd $TMP\\nqp && git checkout $NQP-VERSION')
+                 'cd /d $TMP\\nqp && git checkout $NQP-VERSION')
     ),
     CommandTask.new(
         :id<fetch-rakudo>, :name('Fetch Rakudo'),
         :command('git clone git@github.com:rakudo/rakudo.git $TMP\\rakudo && ' ~
-                 'cd $TMP\\rakudo && git checkout $RAKUDO-VERSION')
+                 'cd /d $TMP\\rakudo && git checkout $RAKUDO-VERSION')
     ),
     CommandTask.new(
         :id<configure-moarvm>, :name('Configure MoarVM'),
         :dependencies<cleanup fetch-moarvm>,
-        :command('cd $TMP\\MoarVM && perl Configure.pl --prefix=$INSTALL-LOCATION'),
+        :command('cd /d $TMP\\MoarVM && perl Configure.pl --prefix=$INSTALL-LOCATION'),
     ),
     CommandTask.new(
         :id<build-moarvm>, :name('Build MoarVM'),
         :dependencies<configure-moarvm>,
-        :command('cd $TMP\\MoarVM && nmake install'),
+        :command('cd /d $TMP\\MoarVM && nmake install'),
     ),
     CommandTask.new(
         :id<configure-nqp>, :name('Configure NQP'),
         :dependencies<fetch-nqp build-moarvm>,
-        :command('cd $TMP\\nqp && perl Configure.pl --prefix=$INSTALL-LOCATION'),
+        :command('cd /d $TMP\\nqp && perl Configure.pl --prefix=$INSTALL-LOCATION'),
     ),
     CommandTask.new(
         :id<build-nqp>, :name('Build NQP'),
         :dependencies<configure-nqp>,
-        :command('cd $TMP\\nqp && nmake install'),
+        :command('cd /d $TMP\\nqp && nmake install'),
     ),
     CommandTask.new(
         :id<configure-rakudo>, :name('Configure Rakudo'),
         :dependencies<fetch-rakudo build-nqp>,
-        :command('cd $TMP\\rakudo && perl Configure.pl --prefix=$INSTALL-LOCATION'),
+        :command('cd /d $TMP\\rakudo && perl Configure.pl --prefix=$INSTALL-LOCATION'),
     ),
     CommandTask.new(
         :id<build-rakudo>, :name('Build Rakudo'),
         :dependencies<configure-rakudo>,
-        :command('cd $TMP\\rakudo && nmake install'),
+        :command('cd /d $TMP\\rakudo && nmake install'),
     ),
     CommandTask.new(
         :id<fetch-zef>, :name('Fetch Zef'),
@@ -72,7 +72,7 @@ my @all-tasks = [
     CommandTask.new(
         :id<install-zef>, :name('Install Zef'),
         :dependencies<fetch-zef build-rakudo>,
-        :command('cd $TMP\\zef && $INSTALL-LOCATION\\bin\\perl6.bat -Ilib bin/zef --/test install .')
+        :command('cd /d $TMP\\zef && $INSTALL-LOCATION\\bin\\perl6.bat -Ilib bin/zef --/test install .')
     ),
     CommandTask.new(
         :id<install-application>, :name('Install Application'),
