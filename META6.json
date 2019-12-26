@@ -18,5 +18,5 @@
         "App::InstallerMaker::WiX::PreCheck" :
             "lib/App/InstallerMaker/WiX/PreCheck.pm6"
     },
-    "source-url" : "git@github.com:jnthn/p6-app-installermaker-wix.git"
+    "source-url" : "https://github.com/jnthn/p6-app-installermaker-wix.git"
 }
